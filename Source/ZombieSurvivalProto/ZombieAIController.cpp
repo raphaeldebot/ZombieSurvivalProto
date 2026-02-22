@@ -2,10 +2,15 @@
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/Character.h"
 
+AZombieAIController::AZombieAIController()
+{
+	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bStartWithTickEnabled = true;
+}
+
 void AZombieAIController::BeginPlay()
 {
 	Super::BeginPlay();
-	SetActorTickEnabled(true);
 }
 
 void AZombieAIController::Tick(float DeltaSeconds)
@@ -19,5 +24,9 @@ void AZombieAIController::Tick(float DeltaSeconds)
 	ACharacter* Player = UGameplayStatics::GetPlayerCharacter(GetWorld(), 0);
 	if (!Player) return;
 
-	MoveToActor(Player, /*AcceptanceRadius*/ 120.f);
+	// Le zombie regarde le joueur (rotation du controller)
+	SetFocus(Player);
+
+	// Le zombie se déplace vers le joueur (pathfinding)
+	MoveToActor(Player, AcceptanceRadius);
 }

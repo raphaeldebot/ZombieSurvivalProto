@@ -10,14 +10,17 @@ class ZOMBIESURVIVALPROTO_API AZombieAIController : public AAIController
 	GENERATED_BODY()
 
 public:
-	virtual void Tick(float DeltaSeconds) override;
+	AZombieAIController();
 
 protected:
 	virtual void BeginPlay() override;
+	virtual void Tick(float DeltaSeconds) override;
 
 	UPROPERTY(EditAnywhere, Category = "AI")
 	float UpdateRate = 0.2f;
 
-private:
+	UPROPERTY(EditAnywhere, Category = "AI")
+	float AcceptanceRadius = 120.f;
+
 	float TimeSinceLastUpdate = 0.f;
 };

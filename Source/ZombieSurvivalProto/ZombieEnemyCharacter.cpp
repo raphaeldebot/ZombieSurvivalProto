@@ -2,14 +2,25 @@
 #include "ZombieAIController.h"
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/Character.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 AZombieEnemyCharacter::AZombieEnemyCharacter()
 {
 	PrimaryActorTick.bCanEverTick = true;
 
-	// Important : dire que ce pawn utilise notre AIController
 	AIControllerClass = AZombieAIController::StaticClass();
 	AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;
+
+	//  IMPORTANT: le zombie tourne dans la direction où il marche
+// IMPORTANT : on tourne via le controller (comme un vrai ennemi qui "fixe" sa cible)
+	bUseControllerRotationYaw = true;
+
+	// On ne veut PAS orienter selon le mouvement sinon ça glisse de côté
+	GetCharacterMovement()->bOrientRotationToMovement = false;
+
+	// Le mouvement utilise la rotation du controller
+	GetCharacterMovement()->bUseControllerDesiredRotation = true;
+	GetCharacterMovement()->RotationRate = FRotator(0.f, 720.f, 0.f);
 
 	Health = MaxHealth;
 }
