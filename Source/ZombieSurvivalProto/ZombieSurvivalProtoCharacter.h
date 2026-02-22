@@ -5,12 +5,17 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Logging/LogMacros.h"
-#include "ZombieSurvivalProtoCharacter.generated.h"
+
 
 class USpringArmComponent;
 class UCameraComponent;
 class UInputAction;
+class USkeletalMeshComponent;   
+class UStaticMeshComponent;
 struct FInputActionValue;
+
+#include "ZombieSurvivalProtoCharacter.generated.h"
+
 
 DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
 
@@ -30,6 +35,9 @@ class AZombieSurvivalProtoCharacter : public ACharacter
 	/** Follow camera */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components", meta = (AllowPrivateAccess = "true"))
 	UCameraComponent* FollowCamera;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Weapon", meta = (AllowPrivateAccess = "true"))
+	UStaticMeshComponent* WeaponMesh;
 	
 protected:
 

@@ -12,6 +12,7 @@
 #include "InputActionValue.h"
 #include "ZombieSurvivalProto.h"
 #include "DrawDebugHelpers.h"
+#include "Components/StaticMeshComponent.h"
 
 AZombieSurvivalProtoCharacter::AZombieSurvivalProtoCharacter()
 {
@@ -46,6 +47,11 @@ AZombieSurvivalProtoCharacter::AZombieSurvivalProtoCharacter()
 	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
 	FollowCamera->bUsePawnControlRotation = false;
+
+	// Create weapon mesh (attached to character mesh)
+	WeaponMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("WeaponMesh"));
+	WeaponMesh->SetupAttachment(GetMesh(), TEXT("hand_rSocket"));
+	WeaponMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
