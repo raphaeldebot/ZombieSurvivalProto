@@ -4,8 +4,7 @@
 
 AZombieAIController::AZombieAIController()
 {
-	PrimaryActorTick.bCanEverTick = true;
-	PrimaryActorTick.bStartWithTickEnabled = true;
+	PrimaryActorTick.bCanEverTick = true; // <- indispensable pour que Tick tourne
 }
 
 void AZombieAIController::BeginPlay()
@@ -24,9 +23,6 @@ void AZombieAIController::Tick(float DeltaSeconds)
 	ACharacter* Player = UGameplayStatics::GetPlayerCharacter(GetWorld(), 0);
 	if (!Player) return;
 
-	// Le zombie regarde le joueur (rotation du controller)
-	SetFocus(Player);
-
-	// Le zombie se déplace vers le joueur (pathfinding)
+	SetFocus(Player);                 // le zombie "regarde" le joueur
 	MoveToActor(Player, AcceptanceRadius);
 }

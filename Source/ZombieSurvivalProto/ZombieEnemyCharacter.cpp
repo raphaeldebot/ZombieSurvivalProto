@@ -13,14 +13,13 @@ AZombieEnemyCharacter::AZombieEnemyCharacter()
 
 	//  IMPORTANT: le zombie tourne dans la direction où il marche
 // IMPORTANT : on tourne via le controller (comme un vrai ennemi qui "fixe" sa cible)
+// IMPORTANT: rotation pilotée par le controller (car on utilise SetFocus)
 	bUseControllerRotationYaw = true;
 
-	// On ne veut PAS orienter selon le mouvement sinon ça glisse de côté
+	GetCharacterMovement()->bUseControllerDesiredRotation = true;
 	GetCharacterMovement()->bOrientRotationToMovement = false;
 
-	// Le mouvement utilise la rotation du controller
-	GetCharacterMovement()->bUseControllerDesiredRotation = true;
-	GetCharacterMovement()->RotationRate = FRotator(0.f, 720.f, 0.f);
+	GetCharacterMovement()->RotationRate = FRotator(0.f, 360.f, 0.f);
 
 	Health = MaxHealth;
 }
